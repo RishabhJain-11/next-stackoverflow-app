@@ -56,8 +56,8 @@ export default function HomePage() {
                 <Link href="/qa">
                   <Button className="bg-orange-500 hover:bg-orange-600">Ask Question</Button>
                 </Link>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   className="text-orange-500 hover:text-orange-500 hover:bg-orange-500/10"
                   onClick={() => {
                     // Add logout logic here
@@ -142,12 +142,14 @@ export default function HomePage() {
                 <CardTitle className="text-white">Interesting posts for you</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {[1, 2, 3, 4].map((i) => (
+                {[1, 2, 3, 4, 5].map((i) => (
                   <div key={i} className="border-b border-gray-800 last:border-0 pb-4 last:pb-0">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-medium text-orange-500 hover:text-blue-400 cursor-pointer">
-                        How to implement authentication in Next.js 13?
-                      </h3>
+                      <Link href={`/discussion/${i}`}>
+                        <h3 className="font-medium text-orange-500 hover:text-blue-400 cursor-pointer">
+                          How to implement authentication in Next.js 13?
+                        </h3>
+                      </Link>
                       <div className="flex items-center gap-2 text-sm text-gray-400">
                         <span>0 votes</span>
                         <span>•</span>
@@ -170,14 +172,38 @@ export default function HomePage() {
               <CardHeader>
                 <CardTitle className="text-lg text-white">The Overflow Blog</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <h3 className="font-medium hover:text-blue-400 cursor-pointer text-orange-500">
+              <CardContent className="space-y-6">
+                <div className="group cursor-pointer">
+                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
                     Research roadmap update, February 2025
                   </h3>
-                  <h3 className="font-medium hover:text-blue-400 cursor-pointer text-orange-500">
+                  <div className="mt-2 space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <span>by Sarah Connor</span>
+                      <span>•</span>
+                      <span>Feb 24, 2025</span>
+                    </div>
+                    <p className="text-sm text-gray-300 line-clamp-2">
+                      An overview of our upcoming research initiatives, focusing on AI integration, developer
+                      productivity, and community engagement metrics for Q2 2025.
+                    </p>
+                  </div>
+                </div>
+                <div className="group cursor-pointer">
+                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
                     One quality every engineering manager should have? Empathy.
                   </h3>
+                  <div className="mt-2 space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <span>by John Matrix</span>
+                      <span>•</span>
+                      <span>Feb 23, 2025</span>
+                    </div>
+                    <p className="text-sm text-gray-300 line-clamp-2">
+                      Exploring the critical role of empathy in engineering leadership and how it impacts team
+                      performance, satisfaction, and overall project success.
+                    </p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -186,34 +212,43 @@ export default function HomePage() {
               <CardHeader>
                 <CardTitle className="text-lg text-white">Featured on Meta</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <h3 className="font-medium hover:text-blue-400 cursor-pointer text-orange-500">
+              <CardContent className="space-y-6">
+                <div className="group cursor-pointer">
+                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
                     Join us for our first community-wide AMA
                   </h3>
-                  <h3 className="font-medium hover:text-blue-400 cursor-pointer text-orange-500">
-                    Stacks Editor development and testing
-                  </h3>
+                  <div className="mt-2 space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <span>Community Team</span>
+                      <span>•</span>
+                      <span>Feb 25, 2025</span>
+                    </div>
+                    <p className="text-sm text-gray-300 line-clamp-2">
+                      Get ready for an exciting Ask Me Anything session with our core team. We'll be discussing platform
+                      updates, community guidelines, and future roadmap.
+                    </p>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-[#1A1F2B] border-gray-800">
-              <CardHeader>
-                <CardTitle className="text-lg text-white">Featured on Meta</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <h3 className="font-medium hover:text-blue-400 cursor-pointer text-orange-500">
-                    Join us for our first community-wide AMA
-                  </h3>
-                  <h3 className="font-medium hover:text-blue-400 cursor-pointer text-orange-500">
+                <div className="group cursor-pointer">
+                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
                     Stacks Editor development and testing
                   </h3>
+                  <div className="mt-2 space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <span>Dev Team</span>
+                      <span>•</span>
+                      <span>Feb 22, 2025</span>
+                    </div>
+                    <p className="text-sm text-gray-300 line-clamp-2">
+                      Updates on our new Stacks Editor, including recent improvements, bug fixes, and how you can
+                      participate in the beta testing program.
+                    </p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </div>
+
         </div>
       </div>
     </div>
