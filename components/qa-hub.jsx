@@ -139,7 +139,7 @@ export default function QAHub() {
               <LayoutGrid className="h-4 w-4" />
             </Button>
 
-            <Button className="bg-blue-600 hover:bg-blue-700 transition-colors ml-2">
+            <Button className="bg-orange-500 hover:bg-blue-700 transition-colors ml-2">
               Post
             </Button>
           </div>
@@ -170,7 +170,7 @@ export default function QAHub() {
                     >
                       <ChevronDown className="h-4 w-4 rotate-180" />
                     </Button>
-                    <span className="text-blue-500 font-medium">{votes}</span>
+                    <span className="text-orange-500 font-medium">{votes}</span>
                     <Button
                       variant="ghost"
                       size="icon"
@@ -204,7 +204,7 @@ export default function QAHub() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                        className="text-orange-500 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
                       >
                         Reply
                       </Button>
@@ -229,7 +229,7 @@ export default function QAHub() {
               <div className="border-t border-gray-800 px-4 py-3 bg-[#141824]">
                 <Button
                   variant="ghost"
-                  className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-colors text-sm"
+                  className="text-orange-500 hover:text-blue-300 hover:bg-blue-500/10 transition-colors text-sm"
                 >
                   View all replies (3)
                 </Button>
