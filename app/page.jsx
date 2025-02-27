@@ -3,17 +3,59 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Settings2, Star } from 'lucide-react'
 import Link from "next/link"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
+const QUESTIONS_PER_PAGE = 5
+
+const MOCK_QUESTIONS = Array.from({ length: 23 }, (_, i) => ({
+  id: i + 1,
+  title: "How to implement authentication in Next.js 13?",
+  votes: Math.floor(Math.random() * 50),
+  answers: Math.floor(Math.random() * 5),
+  tags: ["next.js", "auth"],
+}))
 
 export default function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [username, setUsername] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const totalPages = Math.ceil(MOCK_QUESTIONS.length / QUESTIONS_PER_PAGE)
+
+  const getPageNumbers = (current, total) => {
+    const delta = 2
+    const range = []
+    const rangeWithDots = []
+
+    for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
+      range.push(i)
+    }
+
+    if (current - delta > 2) {
+      rangeWithDots.push(1, "...")
+    } else {
+      rangeWithDots.push(1)
+    }
+
+    rangeWithDots.push(...range)
+
+    if (current + delta < total - 1) {
+      rangeWithDots.push("...", total)
+    } else if (total > 1) {
+      rangeWithDots.push(total)
+    }
+
+    return rangeWithDots
+  }
+
+  const paginatedQuestions = MOCK_QUESTIONS.slice(
+    (currentPage - 1) * QUESTIONS_PER_PAGE,
+    currentPage * QUESTIONS_PER_PAGE,
+  )
+
   useEffect(() => {
-    // Example: Check if user is logged in
     const checkAuthStatus = () => {
-      // Replace this with your actual auth check
-      const user = localStorage.getItem('user')
+      const user = localStorage.getItem("user")
       if (user) {
         setIsLoggedIn(true)
         setUsername(JSON.parse(user).name)
@@ -25,30 +67,22 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#0B0F17] text-white p-6 font-mono">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
+      <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center">
-              <Star className="w-6 h-6 text-orange-500" />
-            </div>
-            <div>
-              {isLoggedIn ? (
-                <>
-                  <h1 className="text-2xl font-bold mb-1">Welcome back, {username}</h1>
-                  <p className="text-gray-400">
-                    Find answers to your technical questions and help others answer theirs.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <h1 className="text-2xl font-bold mb-1">Developer Q&A Hub</h1>
-                  <p className="text-gray-400">
-                    Join our community to ask questions, share knowledge, and learn from developers worldwide.
-                  </p>
-                </>
-              )}
-            </div>
+          <div>
+            {isLoggedIn ? (
+              <>
+                <h1 className="text-2xl font-bold mb-1">Welcome back, {username}</h1>
+                <p className="text-gray-400">Find answers to your technical questions and help others answer theirs.</p>
+              </>
+            ) : (
+              <>
+                <h1 className="text-2xl font-bold mb-1">Developer Q&A Hub</h1>
+                <p className="text-gray-400">
+                  Join our community to ask questions, share knowledge, and learn from developers worldwide.
+                </p>
+              </>
+            )}
           </div>
           <div className="flex items-center gap-4">
             {isLoggedIn ? (
@@ -58,10 +92,9 @@ export default function HomePage() {
                 </Link>
                 <Button
                   variant="ghost"
-                  className="text-orange-500 hover:text-orange-500 hover:bg-orange-500/10"
+                  className="text-orange-400 hover:text-orange-300 hover:bg-orange-500/10"
                   onClick={() => {
-                    // Add logout logic here
-                    localStorage.removeItem('user')
+                    localStorage.removeItem("user")
                     setIsLoggedIn(false)
                     setUsername("")
                   }}
@@ -72,7 +105,7 @@ export default function HomePage() {
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="ghost" className="text-orange-500 hover:text-orange-500 hover:bg-orange-500/10">
+                  <Button variant="ghost" className="text-orange-400 hover:text-orange-300 hover:bg-orange-500/10">
                     Login
                   </Button>
                 </Link>
@@ -84,172 +117,77 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 space-y-6">
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Reputation */}
-              <Card className="bg-[#1A1F2B] border-gray-700">
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-white">Reputation</CardTitle>
-                </CardHeader>
-                <CardContent className="text-white">
-                  <div className="text-2xl font-bold">1</div>
-                  <p className="text-xs text-gray-400 mt-1">Earn reputation by Asking, Answering and Editing</p>
-                </CardContent>
-              </Card>
-
-              {/* Badge Progress */}
-              <Card className="bg-[#1A1F2B] border-gray-700">
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-white">Badge progress</CardTitle>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 bg-orange-500">
-                    <Settings2 className="h-4 w-4 " />
-                  </Button>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 flex-1 bg-gray-800 rounded-full overflow-hidden">
-                      <div className="h-full w-0 bg-blue-500 rounded-full" />
-                    </div>
-                    <span className="text-sm text-gray-400">0/1</span>
+        <Card className="bg-[#1A1F2B] border-gray-800">
+          <CardHeader>
+            <CardTitle className="text-white">Interesting posts for you</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {paginatedQuestions.map((question) => (
+              <div key={question.id} className="border-b border-gray-800 last:border-0 pb-4 last:pb-0">
+                <div className="flex justify-between items-start mb-2">
+                  <Link href={`/discussion/${question.id}`}>
+                    <h3 className="font-medium text-orange-500 hover:text-orange-400 cursor-pointer">
+                      {question.title}
+                    </h3>
+                  </Link>
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <span>{question.votes} votes</span>
+                    <span>•</span>
+                    <span>{question.answers} answers</span>
                   </div>
-                  <p className="text-xs text-gray-400 mt-2">First question with score of 1 or more</p>
-                </CardContent>
-              </Card>
+                </div>
+                <div className="flex gap-2 text-sm">
+                  {question.tags.map((tag) => (
+                    <span key={tag} className="px-2 py-1 rounded-full bg-gray-800 text-gray-300">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
 
-              {/* Watched Tags */}
-              <Card className="bg-[#1A1F2B] border-gray-700">
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-white">Watched tags</CardTitle>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 bg-orange-500">
-                    <Settings2 className="h-4 w-4" />
-                  </Button>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-400">You&apos;re not watching any tags yet!</p>
-                  <Button variant="outline" size="sm" className="mt-2 w-full cursor-pointer">
-                    Customize your feed
-                  </Button>
-                </CardContent>
-              </Card>
+            <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-800">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-white hover:text-orange-500"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+
+              {getPageNumbers(currentPage, totalPages).map((pageNum, idx) => (
+                <Button
+                  key={idx}
+                  variant={pageNum === currentPage ? "default" : "ghost"}
+                  size="sm"
+                  className={`h-8 w-8 text-white ${
+                    pageNum === currentPage ? "bg-orange-500 hover:bg-orange-600" : "hover:text-orange-500"
+                  } ${pageNum === "..." ? "cursor-default hover:bg-transparent hover:text-white" : ""}`}
+                  onClick={() => {
+                    if (typeof pageNum === "number") {
+                      setCurrentPage(pageNum)
+                    }
+                  }}
+                  disabled={pageNum === "..."}
+                >
+                  {pageNum}
+                </Button>
+              ))}
+
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-white hover:text-orange-500"
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
             </div>
-
-            {/* Questions Feed */}
-            <Card className="bg-[#1A1F2B] border-gray-800">
-              <CardHeader>
-                <CardTitle className="text-white">Interesting posts for you</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="border-b border-gray-800 last:border-0 pb-4 last:pb-0">
-                    <div className="flex justify-between items-start mb-2">
-                      <Link href={`/discussion/${i}`}>
-                        <h3 className="font-medium text-orange-500 hover:text-blue-400 cursor-pointer">
-                          How to implement authentication in Next.js 13?
-                        </h3>
-                      </Link>
-                      <div className="flex items-center gap-2 text-sm text-gray-400">
-                        <span>0 votes</span>
-                        <span>•</span>
-                        <span>2 answers</span>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 text-sm">
-                      <span className="px-2 py-1 rounded-full bg-gray-800 text-gray-300">next.js</span>
-                      <span className="px-2 py-1 rounded-full bg-gray-800 text-gray-300">auth</span>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Right Sidebar */}
-          <div className="space-y-6">
-            <Card className="bg-[#1A1F2B] border-gray-800">
-              <CardHeader>
-                <CardTitle className="text-lg text-white">The Overflow Blog</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="group cursor-pointer">
-                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
-                    Research roadmap update, February 2025
-                  </h3>
-                  <div className="mt-2 space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <span>by Sarah Connor</span>
-                      <span>•</span>
-                      <span>Feb 24, 2025</span>
-                    </div>
-                    <p className="text-sm text-gray-300 line-clamp-2">
-                      An overview of our upcoming research initiatives, focusing on AI integration, developer
-                      productivity, and community engagement metrics for Q2 2025.
-                    </p>
-                  </div>
-                </div>
-                <div className="group cursor-pointer">
-                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
-                    One quality every engineering manager should have? Empathy.
-                  </h3>
-                  <div className="mt-2 space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <span>by John Matrix</span>
-                      <span>•</span>
-                      <span>Feb 23, 2025</span>
-                    </div>
-                    <p className="text-sm text-gray-300 line-clamp-2">
-                      Exploring the critical role of empathy in engineering leadership and how it impacts team
-                      performance, satisfaction, and overall project success.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-[#1A1F2B] border-gray-800">
-              <CardHeader>
-                <CardTitle className="text-lg text-white">Featured on Meta</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="group cursor-pointer">
-                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
-                    Join us for our first community-wide AMA
-                  </h3>
-                  <div className="mt-2 space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <span>Community Team</span>
-                      <span>•</span>
-                      <span>Feb 25, 2025</span>
-                    </div>
-                    <p className="text-sm text-gray-300 line-clamp-2">
-                      Get ready for an exciting Ask Me Anything session with our core team. We'll be discussing platform
-                      updates, community guidelines, and future roadmap.
-                    </p>
-                  </div>
-                </div>
-                <div className="group cursor-pointer">
-                  <h3 className="font-medium text-orange-500 group-hover:text-blue-400">
-                    Stacks Editor development and testing
-                  </h3>
-                  <div className="mt-2 space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <span>Dev Team</span>
-                      <span>•</span>
-                      <span>Feb 22, 2025</span>
-                    </div>
-                    <p className="text-sm text-gray-300 line-clamp-2">
-                      Updates on our new Stacks Editor, including recent improvements, bug fixes, and how you can
-                      participate in the beta testing program.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

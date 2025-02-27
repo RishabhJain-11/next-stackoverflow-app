@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -9,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ArrowLeft } from "lucide-react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -24,6 +24,10 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#0B0F17] text-white font-mono flex items-center justify-center">
       <div className="w-full max-w-md p-6">
+        <Link href="/" className="flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Home
+        </Link>
         <Card className="bg-[#1A1F2B] border-gray-800">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold tracking-tight text-white">Welcome back</CardTitle>

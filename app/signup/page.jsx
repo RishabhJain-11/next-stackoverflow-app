@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -9,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ArrowLeft } from "lucide-react"
 
 export default function SignUpPage() {
   const [name, setName] = useState("")
@@ -29,12 +29,14 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen bg-[#0B0F17] text-white font-mono flex items-center justify-center">
       <div className="w-full max-w-md p-6">
+        <Link href="/" className="flex items-center gap-2 text-gray-400 hover:text-orange-500 mb-6 transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Home
+        </Link>
         <Card className="bg-[#1A1F2B] border-gray-800">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold tracking-tight text-white">Create an account</CardTitle>
-            <CardDescription className="text-gray-400">
-              Enter your information to get started
-            </CardDescription>
+            <CardDescription className="text-gray-400">Enter your information to get started</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,7 +103,7 @@ export default function SignUpPage() {
                 />
                 <Label htmlFor="terms" className="text-sm text-gray-300">
                   I agree to the{" "}
-                  <Link href="/terms" className="text-orange-400 hover:text-orange-300">
+                  <Link href="/terms" className="text-orange-500 hover:text-orange-400">
                     Terms & Conditions
                   </Link>
                 </Label>
@@ -111,7 +113,7 @@ export default function SignUpPage() {
               </Button>
               <div className="text-center text-sm text-gray-400">
                 Already have an account?{" "}
-                <Link href="/login" className="text-orange-400 hover:text-orange-300">
+                <Link href="/login" className="text-orange-500 hover:text-orange-400">
                   Sign in
                 </Link>
               </div>

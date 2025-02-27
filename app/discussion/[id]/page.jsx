@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Textarea } from "@/components/ui/textarea"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Bold,
   ChevronDown,
@@ -19,21 +19,27 @@ import {
   Maximize2,
   Table,
   Underline,
-} from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+} from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-import Prism from "prismjs"
-import "prismjs/components/prism-typescript"
-import "prismjs/components/prism-javascript"
+import Prism from "prismjs";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-javascript";
 
-export default function DiscussionPage({ params }) {
-  const [content, setContent] = useState("")
-  const [votes, setVotes] = useState(10)
-  const [answerVotes, setAnswerVotes] = useState(5)
+export default function DiscussionPage(params) {
+  const [content, setContent] = useState("");
+  const [votes, setVotes] = useState(10);
+  const [answerVotes, setAnswerVotes] = useState(5);
 
   useEffect(() => {
-    Prism.highlightAll()
-  }, [])
+    Prism.highlightAll();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0B0F17] text-white p-6 font-mono">
@@ -46,30 +52,38 @@ export default function DiscussionPage({ params }) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors h-10 w-10 rounded-full"
+                  className="text-gray-400 hover:text-orange-500 hover:bg-orange-500/10 transition-colors h-10 w-10 rounded-full"
                   onClick={() => setVotes(votes + 1)}
                 >
                   <ChevronUp className="h-6 w-6" />
                 </Button>
-                <span className="text-xl font-semibold text-orange-400">{votes}</span>
+                <span className="text-xl font-semibold text-orange-500">
+                  {votes}
+                </span>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors h-10 w-10 rounded-full"
+                  className="text-gray-400 hover:text-orange-500 hover:bg-orange-500/10 transition-colors h-10 w-10 rounded-full"
                   onClick={() => setVotes(votes - 1)}
                 >
                   <ChevronDown className="h-6 w-6" />
                 </Button>
               </div>
               <div className="flex-1 min-w-0">
-                <h1 className="text-2xl font-bold mb-4 text-white">How to implement authentication in Next.js 13?</h1>
+                <h1 className="text-2xl font-bold mb-4 text-white">
+                  How to implement authentication in Next.js 13?
+                </h1>
                 <div className="prose prose-invert max-w-none mb-6">
                   <p className="text-gray-300 leading-relaxed">
-                    I&apos;m trying to implement authentication in my Next.js 13 application using the new App Router.
-                    I&apos;ve looked at several solutions including NextAuth.js, but I&apos;m not sure about the best
-                    practices for handling authentication in the new routing system.
+                    I&apos;m trying to implement authentication in my Next.js 13
+                    application using the new App Router. I&apos;ve looked at
+                    several solutions including NextAuth.js, but I&apos;m not
+                    sure about the best practices for handling authentication in
+                    the new routing system.
                   </p>
-                  <p className="text-gray-300 leading-relaxed mt-4">Specifically, I need help with:</p>
+                  <p className="text-gray-300 leading-relaxed mt-4">
+                    Specifically, I need help with:
+                  </p>
                   <ul className="list-disc list-inside text-gray-300 mt-2 space-y-2">
                     <li>Setting up protected routes</li>
                     <li>Handling authentication state</li>
@@ -79,7 +93,9 @@ export default function DiscussionPage({ params }) {
                 <div className="flex items-center gap-3 mb-3">
                   <Avatar className="h-8 w-8 border border-gray-700">
                     <AvatarImage src="" />
-                    <AvatarFallback className="bg-gray-700 text-xs">JS</AvatarFallback>
+                    <AvatarFallback className="bg-gray-700 text-xs">
+                      JS
+                    </AvatarFallback>
                   </Avatar>
                   <div className="flex items-center gap-2 text-sm text-gray-400">
                     <span>john_doe</span>
@@ -88,8 +104,12 @@ export default function DiscussionPage({ params }) {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <span className="px-2 py-1 rounded-full bg-gray-800 text-gray-300 text-sm">next.js</span>
-                  <span className="px-2 py-1 rounded-full bg-gray-800 text-gray-300 text-sm">auth</span>
+                  <span className="px-2 py-1 rounded-full bg-gray-800 text-gray-300 text-sm">
+                    next.js
+                  </span>
+                  <span className="px-2 py-1 rounded-full bg-gray-800 text-gray-300 text-sm">
+                    auth
+                  </span>
                 </div>
               </div>
             </div>
@@ -204,7 +224,9 @@ export default function DiscussionPage({ params }) {
               />
 
               <div className="p-4 bg-[#141824] flex justify-end">
-                <Button className="bg-orange-500 hover:bg-orange-600">Post Your Answer</Button>
+                <Button className="bg-orange-500 hover:bg-orange-600">
+                  Post Your Answer
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -220,16 +242,18 @@ export default function DiscussionPage({ params }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors h-10 w-10 rounded-full"
+                    className="text-gray-400 hover:text-orange-500 hover:bg-orange-500/10 transition-colors h-10 w-10 rounded-full"
                     onClick={() => setAnswerVotes(answerVotes + 1)}
                   >
                     <ChevronUp className="h-6 w-6" />
                   </Button>
-                  <span className="text-xl font-semibold text-orange-400">{answerVotes}</span>
+                  <span className="text-xl font-semibold text-orange-500">
+                    {answerVotes}
+                  </span>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors h-10 w-10 rounded-full"
+                    className="text-gray-400 hover:text-orange-500 hover:bg-orange-500/10 transition-colors h-10 w-10 rounded-full"
                     onClick={() => setAnswerVotes(answerVotes - 1)}
                   >
                     <ChevronDown className="h-6 w-6" />
@@ -238,10 +262,11 @@ export default function DiscussionPage({ params }) {
                 <div className="flex-1 min-w-0">
                   <div className="prose prose-invert max-w-none mb-6">
                     <p className="text-gray-300 leading-relaxed">
-                      Here&apos;s how you can implement authentication in Next.js 13 with the App Router:
+                      Here&apos;s how you can implement authentication in
+                      Next.js 13 with the App Router:
                     </p>
-                    <pre className="bg-[#141824] p-4 rounded-lg mt-4 overflow-x-auto language-typescript">
-                      <code className="text-sm text-white">
+                    <pre className="bg-[#141824] text-white p-4 rounded-lg mt-4 overflow-x-auto language-typescript">
+                      <code className="text-sm">
                         {`// middleware.ts
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('token')  // Get token from cookies
@@ -259,7 +284,9 @@ export function middleware(request: NextRequest) {
                   <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8 border border-gray-700">
                       <AvatarImage src="" />
-                      <AvatarFallback className="bg-gray-700 text-xs">AS</AvatarFallback>
+                      <AvatarFallback className="bg-gray-700 text-xs">
+                        AS
+                      </AvatarFallback>
                     </Avatar>
                     <div className="flex items-center gap-2 text-sm text-gray-400">
                       <span>alice_smith</span>
@@ -274,6 +301,5 @@ export function middleware(request: NextRequest) {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
